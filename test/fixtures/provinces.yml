@@ -1,0 +1,9 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  province: MyString
+  tax_rate: 1.5
+
+two:
+  province: MyString
+  tax_rate: 1.5
