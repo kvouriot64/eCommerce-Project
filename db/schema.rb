@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_01_220936) do
+ActiveRecord::Schema.define(version: 2020_04_02_221332) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -108,6 +108,7 @@ ActiveRecord::Schema.define(version: 2020_04_01_220936) do
     t.text "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "Order_status_id"
   end
 
   create_table "provinces", force: :cascade do |t|
@@ -139,5 +140,6 @@ ActiveRecord::Schema.define(version: 2020_04_01_220936) do
   add_foreign_key "order_products", "Products"
   add_foreign_key "orders", "Statuses"
   add_foreign_key "orders", "Users"
+  add_foreign_key "products", "order_statuses", column: "Order_status_id"
   add_foreign_key "users", "Provinces"
 end

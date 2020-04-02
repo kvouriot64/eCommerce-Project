@@ -46,17 +46,17 @@ statuses = %w[Pending Paid Shipped New On_Sale None]
 end
 
 100.times do
-  product = Product.new(
+  product = Product.create(
     product_name: Faker::Commerce.product_name,
     description: Faker::Company.bs,
     price: Faker::Commerce.price
   )
 
   first_category = Category.first.id
-  last_category = Category.first.id + Category.count - 1
+  last_category = first_category + Category.count - 1
 
   category = Category.find(rand(first_category..last_category))
-  rand(1..4).times do
+  rand(1..2).times do
     CategoryProduct.create(Product_id: product.id, Category_id: category.id)
   end
 end
