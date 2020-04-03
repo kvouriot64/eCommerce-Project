@@ -8,12 +8,15 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+require 'date'
+require 'faker'
+
 CategoryProduct.destroy_all
 
 Category.destroy_all
 Product.destroy_all
 # Province.destory
-# OrderStatus.destroy
+OrderStatus.destroy_all
 
 statuses = %w[Pending Paid Shipped New On_Sale None]
 
@@ -37,20 +40,25 @@ statuses = %w[Pending Paid Shipped New On_Sale None]
 #   Province.create(province: province, tax_rate: value[0], rate_type: value[1])
 # end
 
-# statuses.each do |status|
-#   OrderStatus.create(status: status)
-# end
+statuses.each do |status|
+  OrderStatus.create(status: status)
+end
 
 5.times do
   Category.create(category: Faker::Commerce.department)
 end
 
+new_status = OrderStatus.where(status: 'New').first
 100.times do
-  product = Product.create(
+  product = Product.new(
     product_name: Faker::Commerce.product_name,
     description: Faker::Company.bs,
     price: Faker::Commerce.price
   )
+
+  product.OrderStatus = new_status
+
+  product.save
 
   first_category = Category.first.id
   last_category = first_category + Category.count - 1
