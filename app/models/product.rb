@@ -2,12 +2,15 @@
 
 class Product < ApplicationRecord
   validates :product_name, :description, :price, presence: true
-  validates :price, numericality: { only_integer: true }
+  validates :price, numericality: true
 
-  belongs_to :order_statuses
+  has_one_attached :image
 
-  has_many :categories, through: :category_products
-  has_many :category_products
+  belongs_to :OrderStatus
 
-  belongs_to :order_statuses
+  # has_many :category_products
+  # has_many :categories, through: :category_products
+
+  # has_many :order_products
+  # has_many :orders, through: :order_products
 end
