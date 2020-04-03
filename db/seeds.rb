@@ -67,6 +67,10 @@ new_status = OrderStatus.where(status: 'New').first
   rand(1..2).times do
     CategoryProduct.create(Product_id: product.id, Category_id: category.id)
   end
+
+  downloaded_image = open(URI.escape("https://source.unsplash.com/600x600/?#{product.product_name}"))
+  product.image.attach(io: downloaded_image, filename: "m-#{product.product_name}")
+  sleep(1)
 end
 
 # if Rails.env.development?
