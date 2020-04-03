@@ -6,7 +6,11 @@ ActiveAdmin.register Product do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  permit_params :product_name, :description, :price, :OrderStatus_id, :Order_status_id
+  permit_params :category, :product_name, :description, :price, :image, :OrderStatus_id, :Order_status_id, category_products: %i[id Category_id Product_id _destroy]
+
+  # show do |category|
+  #   attributes_table
+  # end
 
   form do |f|
     f.semantic_errors
@@ -14,6 +18,16 @@ ActiveAdmin.register Product do
     f.inputs do
       f.input :image, as: :file
     end
+
+    # f.inputs 'Product' do
+    #   f.has_many :category_products, allow_destroy: true do |n_f|
+    #     n_f.input :category
+    #   end
+
+    #   f.has_many :order_products, allow_destroy: true do |n_f|
+    #     n_f.input :order
+    #   end
+    # end
     f.actions
   end
   #

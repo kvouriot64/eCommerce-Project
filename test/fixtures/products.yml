@@ -2,12 +2,12 @@
 
 one:
   product_name: MyString
-  price: 1.5
   description: MyText
-  image: MyString
+  price: 1
+  OrderStatus: one
 
 two:
   product_name: MyString
-  price: 1.5
   description: MyText
-  image: MyString
+  price: 1
+  OrderStatus: two
