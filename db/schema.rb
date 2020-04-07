@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_03_083352) do
+ActiveRecord::Schema.define(version: 2020_04_03_074348) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -66,22 +66,22 @@ ActiveRecord::Schema.define(version: 2020_04_03_083352) do
   end
 
   create_table "category_products", force: :cascade do |t|
-    t.integer "Category_id", null: false
-    t.integer "Product_id", null: false
+    t.integer "category_id", null: false
+    t.integer "product_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["Category_id"], name: "index_category_products_on_Category_id"
-    t.index ["Product_id"], name: "index_category_products_on_Product_id"
+    t.index ["category_id"], name: "index_category_products_on_category_id"
+    t.index ["product_id"], name: "index_category_products_on_product_id"
   end
 
   create_table "order_products", force: :cascade do |t|
-    t.integer "Order_id", null: false
-    t.integer "Product_id", null: false
+    t.integer "order_id", null: false
+    t.integer "product_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "quantity"
-    t.index ["Order_id"], name: "index_order_products_on_Order_id"
-    t.index ["Product_id"], name: "index_order_products_on_Product_id"
+    t.index ["order_id"], name: "index_order_products_on_order_id"
+    t.index ["product_id"], name: "index_order_products_on_product_id"
   end
 
   create_table "order_statuses", force: :cascade do |t|
@@ -94,23 +94,20 @@ ActiveRecord::Schema.define(version: 2020_04_03_083352) do
     t.integer "quantity"
     t.float "total_cost"
     t.datetime "order_date"
-    t.integer "User_id", null: false
-    t.integer "Status_id", null: false
+    t.integer "user_id", null: false
+    t.integer "status_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["Status_id"], name: "index_orders_on_Status_id"
-    t.index ["User_id"], name: "index_orders_on_User_id"
+    t.index ["status_id"], name: "index_orders_on_status_id"
+    t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
   create_table "products", force: :cascade do |t|
     t.string "product_name"
     t.text "description"
     t.integer "price"
-    t.integer "OrderStatus_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "Order_status_id"
-    t.index ["OrderStatus_id"], name: "index_products_on_OrderStatus_id"
   end
 
   create_table "provinces", force: :cascade do |t|
@@ -136,12 +133,11 @@ ActiveRecord::Schema.define(version: 2020_04_03_083352) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "category_products", "Categories"
-  add_foreign_key "category_products", "Products"
-  add_foreign_key "order_products", "Orders"
-  add_foreign_key "order_products", "Products"
-  add_foreign_key "orders", "Statuses"
-  add_foreign_key "orders", "Users"
-  add_foreign_key "products", "order_statuses", column: "Order_status_id"
+  add_foreign_key "category_products", "categories"
+  add_foreign_key "category_products", "products"
+  add_foreign_key "order_products", "orders"
+  add_foreign_key "order_products", "products"
+  add_foreign_key "orders", "statuses"
+  add_foreign_key "orders", "users"
   add_foreign_key "users", "Provinces"
 end

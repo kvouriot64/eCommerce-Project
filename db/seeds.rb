@@ -48,15 +48,12 @@ end
   Category.create(category: Faker::Commerce.department)
 end
 
-new_status = OrderStatus.where(status: 'New').first
 100.times do
   product = Product.new(
     product_name: Faker::Commerce.product_name,
     description: Faker::Company.bs,
     price: Faker::Commerce.price
   )
-
-  product.OrderStatus = new_status
 
   product.save
 
@@ -65,7 +62,7 @@ new_status = OrderStatus.where(status: 'New').first
 
   category = Category.find(rand(first_category..last_category))
   rand(1..2).times do
-    CategoryProduct.create(Product_id: product.id, Category_id: category.id)
+    CategoryProduct.create(product: product, category: category)
   end
 
   downloaded_image = open(URI.escape("https://source.unsplash.com/600x600/?#{product.product_name}"))
@@ -73,6 +70,6 @@ new_status = OrderStatus.where(status: 'New').first
   sleep(1)
 end
 
-if Rails.env.development?
-  AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password')
-end
+# if Rails.env.development?
+#   AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password')
+# end
