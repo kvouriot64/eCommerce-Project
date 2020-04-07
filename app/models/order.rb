@@ -5,7 +5,7 @@ class Order < ApplicationRecord
   validates :quantity, :total_cost, numericality: true
 
   belongs_to :user
-  belongs_to :OrderStatus
+  belongs_to :order_status
 
   has_many :order_products
   has_many :products, through: :order_products

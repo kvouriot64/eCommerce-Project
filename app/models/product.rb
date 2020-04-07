@@ -6,11 +6,12 @@ class Product < ApplicationRecord
 
   has_one_attached :image
 
-  belongs_to :OrderStatus
+  paginates_per 10
 
-  # has_many :category_products
-  # has_many :categories, through: :category_products
+  has_many :category_products
+  has_many :categories, through: :category_products
+  accepts_nested_attributes_for :category_products, allow_destroy: true
 
-  # has_many :order_products
-  # has_many :orders, through: :order_products
+  has_many :order_products
+  has_many :orders, through: :order_products
 end
