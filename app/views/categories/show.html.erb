@@ -11,7 +11,9 @@
   <% end %>
 </details>
 
-<% @products.each do |product| %>
+<h1><%= @category.category %></h1>
+
+<% @category.products.each do |product| %>
   <div>
     <%if product.image.present? %>
       <figure>
@@ -29,4 +31,3 @@
     <p><%= button_to 'add to cart', add_to_cart_path(product.id), method: :post %></p>
   <% end %>
 <% end %>
-<%= paginate @products %>
