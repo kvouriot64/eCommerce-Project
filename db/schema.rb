@@ -10,14 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_08_192624) do
-
-  create_table "abouts", force: :cascade do |t|
-    t.string "title"
-    t.text "content"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
+ActiveRecord::Schema.define(version: 2020_04_13_041438) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -81,15 +74,6 @@ ActiveRecord::Schema.define(version: 2020_04_08_192624) do
     t.index ["product_id"], name: "index_category_products_on_product_id"
   end
 
-  create_table "contacts", force: :cascade do |t|
-    t.string "title"
-    t.text "description"
-    t.string "email"
-    t.string "phone_number"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "order_products", force: :cascade do |t|
     t.integer "order_id", null: false
     t.integer "product_id", null: false
@@ -111,11 +95,19 @@ ActiveRecord::Schema.define(version: 2020_04_08_192624) do
     t.float "total_cost"
     t.datetime "order_date"
     t.integer "user_id", null: false
-    t.integer "status_id", null: false
+    t.integer "order_statuses_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["status_id"], name: "index_orders_on_status_id"
+    t.index ["order_statuses_id"], name: "index_orders_on_order_statuses_id"
     t.index ["user_id"], name: "index_orders_on_user_id"
+  end
+
+  create_table "pages", force: :cascade do |t|
+    t.string "title"
+    t.text "content"
+    t.string "permalink"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "products", force: :cascade do |t|
@@ -135,17 +127,26 @@ ActiveRecord::Schema.define(version: 2020_04_08_192624) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "email"
     t.string "phone_number"
     t.string "first_name"
     t.string "last_name"
-    t.string "password"
     t.string "street_address"
     t.string "postal_code"
     t.integer "Province_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.string "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string "unconfirmed_email"
     t.index ["Province_id"], name: "index_users_on_Province_id"
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
@@ -153,7 +154,7 @@ ActiveRecord::Schema.define(version: 2020_04_08_192624) do
   add_foreign_key "category_products", "products"
   add_foreign_key "order_products", "orders"
   add_foreign_key "order_products", "products"
-  add_foreign_key "orders", "statuses"
+  add_foreign_key "orders", "order_statuses", column: "order_statuses_id"
   add_foreign_key "orders", "users"
   add_foreign_key "users", "Provinces"
 end

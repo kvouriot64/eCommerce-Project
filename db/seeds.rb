@@ -45,14 +45,14 @@ statuses.each do |status|
 end
 
 5.times do
-  Category.create(category: Faker::Commerce.department)
+  Category.create(category: Faker::Commerce.unique.department)
 end
 
 100.times do
   product = Product.new(
     product_name: Faker::Commerce.product_name,
     description: Faker::Company.bs,
-    price: Faker::Commerce.price
+    price: (Faker::Commerce.price * 100.0)
   )
 
   product.save
@@ -70,6 +70,6 @@ end
   sleep(1)
 end
 
-# if Rails.env.development?
-#   AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password')
-# end
+if Rails.env.development?
+  AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password')
+end

@@ -5,7 +5,7 @@
   <% else %>
     <ul>
       <% @cart.each do |product| %>
-        <li> <%= product.product_name %></li>
+        <li><%= product.product_name %> <%= link_to 'Remove', remove_from_cart_path(product.id), method: :delete %></li>
       <% end %>
     </ul>
   <% end %>
@@ -15,7 +15,7 @@
 
 <% @category.products.each do |product| %>
   <div>
-    <%if product.image.present? %>
+    <% if product.image.present? %>
       <figure>
         <%= image_tag product.image %>
       </figure>
@@ -26,7 +26,7 @@
   <p>Price: <%= number_to_currency product.price / 100.0 %></p>
 
   <% if @cart.include?(product.id) %>
-    <p><%= button_to 'remove from cart', remove_from_cart_path %></p>
+    <p><%= button_to 'remove from cart', remove_from_cart_path(product), method: :delete %></p>
   <% else %>
     <p><%= button_to 'add to cart', add_to_cart_path(product.id), method: :post %></p>
   <% end %>
