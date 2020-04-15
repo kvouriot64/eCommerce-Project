@@ -1,0 +1,6 @@
+<% categories = Category.all %>
+<%= form_with(url: search_path, local: true, method: 'get') do %>
+  <%= select_tag(:category, options_for_select(categories.collect {|c| [c.category, c.id]})) %>
+  <%= text_field_tag(:search, nil, class: 'input') %>
+  <%= submit_tag("Search") %>
+<% end %>

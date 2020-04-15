@@ -12,16 +12,20 @@ class ProductsController < ApplicationController
   end
 
   def search
-    @products = Product.where(product_name: params[:search]).or("description LIKE #{params[:search]}")
+    @products = Product.where('product_name LIKE ?', "%#{params[:search]}").or(Product.where('description LIKE ?', "%#{params[:search]}%"))
+                       .joins(:categories).where('categories.id = ?', params[:category])
   end
 
   def load_cart
-    @cart = Product.find(session[:cart])
+    products = session[:cart]
+    @cart = Product.find(products.keys)
   end
 
   def add_to_cart
-    session[:cart] << params[:id]
-    redirect_to root_path
+    id = params[:id].to_i
+    quantity = 1
+    item = { id => quantity }
+    session[:cart].merge!(item) unless session[:cart].include?(item)
   end
 
   def remove_from_cart
@@ -30,7 +34,26 @@ class ProductsController < ApplicationController
     redirect_to root_path
   end
 
+  def increment
+    item = Product.find(session[:cart][params[:id]])
+    item.value += 1
+    session[:cart][params[:id]].values += 1
+    redirect_to root_path
+  end
+
+  def decrement
+    id = params[:id].to_i
+    unless session[:cart][id] = 0
+      quantity = -1
+      item = { id => quantity }
+      session[:cart].merge!(item) unless session[:cart].include?(item)
+    end
+  end
+
+  private
+
   def initialize_session
-    session[:cart] ||= []
+    session[:cart] ||= {}
+    session[:logged_in] ||= false
   end
 end

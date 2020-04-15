@@ -1,0 +1,15 @@
+<div>
+  <% if @products.any? %>
+    <% @products.each do |product| %>
+      <figure>
+        <%= image_tag product.image %>
+      </figure>
+
+      <h1><%= link_to product.product_name, product %></h1>
+      <p><%= product.description %></p>
+      <p><%= number_to_currency product.price / 100 %></p>
+    <% end %>
+  <% else %>
+    <p>Sorry, no products that match the term '<%= params[:search] %>'</p>
+  <% end %>
+</div>
