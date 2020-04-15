@@ -17,8 +17,7 @@ class ProductsController < ApplicationController
   end
 
   def load_cart
-    products = session[:cart]
-    @cart = Product.find(products.keys)
+    @cart = session[:cart]
   end
 
   def add_to_cart
@@ -26,28 +25,25 @@ class ProductsController < ApplicationController
     quantity = 1
     item = { id => quantity }
     session[:cart].merge!(item) unless session[:cart].include?(item)
+    redirect_to root_path
   end
 
   def remove_from_cart
-    id = params[:id].to_i
+    id = params[:id]
     session[:cart].delete(id)
     redirect_to root_path
   end
 
   def increment
-    item = Product.find(session[:cart][params[:id]])
-    item.value += 1
-    session[:cart][params[:id]].values += 1
+    id = params[:id]
+    session[:cart][id] += 1
     redirect_to root_path
   end
 
   def decrement
-    id = params[:id].to_i
-    unless session[:cart][id] = 0
-      quantity = -1
-      item = { id => quantity }
-      session[:cart].merge!(item) unless session[:cart].include?(item)
-    end
+    id = params[:id]
+    session[:cart][id] -= 1
+    redirect_to root_path
   end
 
   private

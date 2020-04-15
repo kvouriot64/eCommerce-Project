@@ -4,8 +4,9 @@
     <p>Empty cart.</p>
   <% else %>
     <ul>
-      <% @cart.each do |product| %>
-        <li> <%= product.product_name %></li>
+      <% @cart.each do |id, quantity| %>
+        <li><%= link_to 'decrement', decrement_path(id), method: :post %><%= Product.find(id).product_name %><%= link_to 'Remove', remove_from_cart_path(id), method: :delete %> <%= link_to '+', increment_path(id), method: :post %></li>
+        <li><%= quantity %></li>
       <% end %>
     </ul>
   <% end %>
@@ -23,8 +24,8 @@
   <h1><%= link_to product.product_name, product %></h1>
   <p>Price: <%= number_to_currency product.price / 100.0 %></p>
 
-  <% if @cart.include?(product.id) %>
-    <p><%= button_to 'remove from cart', remove_from_cart_path %></p>
+  <% if @cart.include?(product) %>
+    <p><%= button_to 'remove from cart', remove_from_cart_path(product.id), method: :delete %></p>
   <% else %>
     <p><%= button_to 'add to cart', add_to_cart_path(product.id), method: :post %></p>
   <% end %>
