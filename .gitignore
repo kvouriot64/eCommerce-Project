@@ -35,3 +35,4 @@
 yarn-debug.log*
 .yarn-integrity
 config/secrets/vaulted-acolyte-274320-52df109f8414.json
+config/secrets/ecommerce-pic.json
