@@ -7,6 +7,6 @@ class CategoriesController < ApplicationController
   end
 
   def load_cart
-    @cart = Product.find(session[:cart])
+    @cart = session[:cart]
   end
 end

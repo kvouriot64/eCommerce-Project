@@ -4,10 +4,12 @@
     <p>Empty cart.</p>
   <% else %>
     <ul>
-      <% @cart.each do |product| %>
-        <li><%= product.product_name %> <%= link_to 'Remove', remove_from_cart_path(product.id), method: :delete %></li>
+      <% @cart.each do |id, quantity| %>
+        <li><%= link_to 'decrement', decrement_path(id), method: :post %><%= Product.find(id).product_name %><%= link_to 'Remove', remove_from_cart_path(id), method: :delete %> <%= link_to '+', increment_path(id), method: :post %></li>
+        <li><%= quantity %></li>
       <% end %>
     </ul>
+    <%= button_to 'Check out', checkout_create_path, method: :post, params: {cart: @cart}, remote: true %>
   <% end %>
 </details>
 

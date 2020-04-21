@@ -16,7 +16,7 @@ CategoryProduct.destroy_all
 Category.destroy_all
 Product.destroy_all
 # Province.destory
-OrderStatus.destroy_all
+# OrderStatus.destroy_all
 
 statuses = %w[Pending Paid Shipped New On_Sale None]
 
@@ -40,9 +40,9 @@ statuses = %w[Pending Paid Shipped New On_Sale None]
 #   Province.create(province: province, tax_rate: value[0], rate_type: value[1])
 # end
 
-statuses.each do |status|
-  OrderStatus.create(status: status)
-end
+# statuses.each do |status|
+#   OrderStatus.create(status: status)
+# end
 
 5.times do
   Category.create(category: Faker::Commerce.unique.department)
@@ -70,6 +70,14 @@ end
   sleep(1)
 end
 
-if Rails.env.development?
-  AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password')
+all_category = Category.new(category: 'All')
+
+all_category.save
+
+Product.all.each do |product|
+  CategoryProduct.create(category_id: all_category.id, product_id: product.id)
 end
+
+# if Rails.env.development?
+#   AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password')
+# end

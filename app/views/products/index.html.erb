@@ -9,6 +9,7 @@
         <li><%= quantity %></li>
       <% end %>
     </ul>
+    <%= button_to 'Check out', checkout_create_path, method: :post, params: {cart: @cart}, remote: true %>
   <% end %>
 </details>
 

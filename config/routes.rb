@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  get 'registrations/new'
   devise_for :users
   get 'pages/show'
   get 'contacts/show'
@@ -29,4 +30,11 @@ Rails.application.routes.draw do
   delete 'products/remove_from_cart/:id', to: 'products#remove_from_cart', as: 'remove_from_cart'
   post 'products/increment/:id', to: 'products#increment', as: 'increment'
   post 'products/decrement/:id', to: 'products#decrement', as: 'decrement'
+
+  # checkout
+  scope '/checkout' do
+    post 'create', to: 'checkout#create', as: 'checkout_create'
+    get 'cancel', to: 'checkout#cancel', as: 'checkout_cancel'
+    get 'success', to: 'checkout#success', as: 'checkout_success'
+  end
 end
