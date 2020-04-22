@@ -2,7 +2,9 @@
 
 Rails.application.routes.draw do
   get 'registrations/new'
-  devise_for :users
+  devise_for :users, controllers: {
+    registrations: 'users/registrations' # set route for registrations
+  }
   get 'pages/show'
   get 'contacts/show'
   get 'contact/show'
