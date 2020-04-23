@@ -1,1 +1,12 @@
 <h1>Your transaction was successful!</h1>
+
+<%= link_to "Back to home", root_path %>
+
+<%= current_user.inspect %>
+
+<%= @session %> <br/> <br />
+<%= @payment_intent %>
+
+<% @order.errors.full_messages.each do |message| %>
+  <%= message %>
+<% end %>

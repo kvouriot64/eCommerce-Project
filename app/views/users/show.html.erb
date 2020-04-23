@@ -1,0 +1,22 @@
+<h1>My Profile</h1>
+
+<% if current_user.orders.count == 0 %>
+  <h2>You have no past orders</h2>
+<% else %>
+  <table>
+    <thead>
+      <th>Order Number</th>
+      <th>Order Date</th>
+      <th>Total Cost</th>
+      <th>Order Quantity</th>
+    </thead>
+    <% current_user.orders.each do |order| %>
+      <tr>
+        <td><%= order.order_number %></td>
+        <td><%= order.order_date %></td>
+        <td><%= order.total_cost %></td>
+        <td><%= order.quantity %></td>
+      </tr>
+    <% end %>
+  </table>
+<% end %>
