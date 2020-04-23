@@ -39,4 +39,7 @@ Rails.application.routes.draw do
     get 'cancel', to: 'checkout#cancel', as: 'checkout_cancel'
     get 'success', to: 'checkout#success', as: 'checkout_success'
   end
+
+  # user show
+  get 'users/profile/:id', to: 'users#show', as: 'profile'
 end

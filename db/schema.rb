@@ -95,11 +95,11 @@ ActiveRecord::Schema.define(version: 2020_04_22_060500) do
     t.float "total_cost"
     t.datetime "order_date"
     t.integer "user_id", null: false
-    t.integer "order_statuses_id", null: false
+    t.integer "order_status_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "order_number"
-    t.index ["order_statuses_id"], name: "index_orders_on_order_statuses_id"
+    t.index ["order_status_id"], name: "index_orders_on_order_status_id"
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
@@ -155,7 +155,7 @@ ActiveRecord::Schema.define(version: 2020_04_22_060500) do
   add_foreign_key "category_products", "products"
   add_foreign_key "order_products", "orders"
   add_foreign_key "order_products", "products"
-  add_foreign_key "orders", "order_statuses", column: "order_statuses_id"
+  add_foreign_key "orders", "order_statuses"
   add_foreign_key "orders", "users"
   add_foreign_key "users", "provinces"
 end
